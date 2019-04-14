@@ -23,12 +23,4 @@ tar -xvf "fordownload.tar.gz"
 rm "fordownload.tar.gz"
 mv "fordownload" "MaxEntScan"
 
-# Download SVMBP
-wget "https://bitbucket.org/regulatorygenomicsupf/svm-bpfinder/get/727e2d8ea4ad.zip"
-unzip "727e2d8ea4ad.zip"
-rm "727e2d8ea4ad.zip"
-mv "regulatorygenomicsupf-svm-bpfinder-727e2d8ea4ad" "SVMBP"
-cd "SVMBP"
-wget "http://regulatorygenomics.upf.edu/Software/SVM_BP/calculate_best_BP_per_intron.pl"
-
 cd "$src_dir"

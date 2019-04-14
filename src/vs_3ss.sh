@@ -6,6 +6,7 @@ score_3ss()
         # due to a mutation (SNV/small indel) using MaxEntScan::3ss
 
         prefix=$(basename "$1")
+	src_dir=$(pwd)
 
         while read line; do
 		variant_id=$(echo "$line" | cut -f1)
@@ -26,15 +27,18 @@ score_3ss()
 		
 		lower_bound=$(bc -l <<< "$ref_lb-20")
                 upper_bound=$(bc -l <<< "$ref_lb+2")
-                refseq=$(echo "$wt_seq" | cut -c"$lower_bound"-"$upper_bound")
-                mes_ref=$(echo "$refseq" | perl "$data/MaxEntScan/score3.pl" - | cut -f2)
+                
+		refseq=$(echo "$wt_seq" | cut -c"$lower_bound"-"$upper_bound")
+		cd "$data/MaxEntScan"
+                mes_ref=$(echo "$refseq" | perl "score3.pl" - | cut -f2)
 
                 lower_bound=$(bc -l <<< "$alt_lb-20")
                 upper_bound=$(bc -l <<< "$alt_lb+2")
                 altseq=$(echo "$mut_seq" | cut -c"$lower_bound"-"$upper_bound")
-                mes_alt=$(echo "$altseq" | perl "$data/MaxEntScan/score3.pl" - | cut -f2)
+                mes_alt=$(echo "$altseq" | perl "score3.pl" - | cut -f2)
 
                 mes_score=$(awk -v "mes_alt=$mes_alt" -v "mes_ref=$mes_ref" 'BEGIN{print mes_alt-mes_ref}')
+		cd "$src_dir"
 		
                 echo -e "$chr\t$pos\t$ref\t$alt\t$mes_score" >> "$tmp/$prefix.3ss"
 
