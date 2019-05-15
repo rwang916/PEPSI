@@ -18,7 +18,7 @@ wget "https://krishna.gs.washington.edu/download/CADD/v1.3/ExAC_r0.3_inclAnno.ts
 
 # Download MaxEntScan
 cd ".."
-wget "http://genes.mit.edu/burgelab/maxent/download/fordownload.tar.gz"
+wget "http://hollywood.mit.edu/burgelab/maxent/download/fordownload.tar.gz"
 tar -xvf "fordownload.tar.gz"
 rm "fordownload.tar.gz"
 mv "fordownload" "MaxEntScan"
